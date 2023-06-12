@@ -2,11 +2,15 @@ import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
+import cors from "cors"
 
 import authRoute from "./routes/auth.js"
 import hotelsRoute from "./routes/hotels.js"
 import roomsRoute from "./routes/rooms.js"
 import usersRoute from "./routes/users.js"
+
+
+
 
 const app =express()
 
@@ -26,6 +30,8 @@ catch(error){
 
 }
 
+// cors (needed only if not using proxy in frontend to fetch data || we are using proxy in frontend )
+app.use(cors())     
 
 // middlewares
 app.use(cookieParser())
