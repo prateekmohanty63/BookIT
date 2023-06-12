@@ -32,6 +32,7 @@ export const deleteHotel=async(req,res,next)=>{
     }
 }
 
+// get all hotels
 export const getAllHotel=async(req,res,next)=>{
     try{
      const allHotels=await Hotel.find()
@@ -39,6 +40,18 @@ export const getAllHotel=async(req,res,next)=>{
     }
     catch(err){
         next(err)
+    }
+}
+
+// get featured hotels
+
+export const getFeaturedHotel=async(req,res,next)=>{
+    try{
+        const featuredHotels=await Hotel.find(req.query)
+        res.status(200).json(featuredHotels)
+    }
+    catch(err){
+       next(err)
     }
 }
 
