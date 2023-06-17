@@ -22,11 +22,11 @@ const List = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
-  const {data,loading,error,refetch}=useFetch(`/hotels?cities=${destination}`)
-  console.log(data)
+  const {data,loading,error,reFetch}=useFetch(`/hotels?cities=${destination}`)
+  // console.log(data)
 
   const handleClick = () => {
-    //reFetch();
+    reFetch();
   };
 
   return (
@@ -99,7 +99,7 @@ const List = () => {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
           {
            <div className="listResult">
