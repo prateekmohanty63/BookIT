@@ -5,9 +5,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navContainer">
-        <Navigate to="/" style={{color:"inherit",textDecoration:"none"}}>
+        {/* <Navigate to="/" style={{color:"inherit",textDecoration:"none"}}>
         <span className="logo">lamabooking</span>
-        </Navigate>
+        </Navigate> */}
+        <span className="logo">lamabooking</span>
         <div className="navItems">
           <button className="navButton">Register</button>
           <button className="navButton">Login</button>

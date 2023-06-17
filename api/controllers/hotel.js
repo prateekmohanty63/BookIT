@@ -43,18 +43,48 @@ export const getAllHotel=async(req,res,next)=>{
     }
 }
 
-// get featured hotels
+export const getHotels = async (req, res, next) => {
+    const { min, max, ...others } = req.query;
+    try {
+      const hotels = await Hotel.find({
+        ...others,
+        cheapestPrice: { $gt: min | 1, $lt: max || 999 },
+      }).limit(req.query.limit);
+      res.status(200).json(hotels);
+    } catch (err) {
+      next(err);
+    }
+  };
 
-export const getFeaturedHotel=async(req,res,next)=>{
-    const {min,max,...other}=req.query
-    try{
-        const featuredHotels=await Hotel.find({...other,chepeastPrice:{$gt:min || 1,$lt:max || 9999}}).limit(req.query.limit)
-        res.status(200).json(featuredHotels)
-    }
-    catch(err){
-       next(err)
-    }
-}
+
+// // get featured hotels
+
+// export const getFeaturedHotel=async(req,res,next)=>{
+//     const {min,max,...other}=req.query
+//     try{
+//         const featuredHotels=await Hotel.find({...other,chepeastPrice:{$gt:min || 1,$lt:max || 9999}}).limit(req.query.limit)
+//         res.status(200).json(featuredHotels)
+//     }
+//     catch(err){
+//        next(err)
+//     }
+
+// }
+
+// export const getHotelByCity=async(req,res,next)=>{
+//     const {min,max,...others}=req.query;
+
+//     try{
+//         const hotels=await Hotel.find({
+//             ...others,
+//             chepeastPrice:{$gtt:min | 1,$lt:max || 999},
+//         })
+//         res.status(200).json(hotels)
+//     }
+//     catch(err){
+//         next(err)
+//     }
+// }
 
 export const getHotelById=async(req,res,next)=>{
     try{

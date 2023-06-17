@@ -1,3 +1,4 @@
+// const {data,loading,error,refetch}=useFetch(`/hotels/feat/featured/true?city=${destination}`)
 import "./list.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
@@ -6,13 +7,27 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
+import useFetch from "../../hooks/useFetch";
 
 const List = () => {
   const location = useLocation();
-  const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  // console.log(location)
+  // console.log(location.state.state.destination)
+  // console.log(location.state.state.date)
+  // console.log(location.state.state.options)
+  const [destination, setDestination] = useState(location.state.state.destination);
+  const [date, setDate] = useState(location.state.state.date);
   const [openDate, setOpenDate] = useState(false);
-  const [options, setOptions] = useState(location.state.options);
+  const [options, setOptions] = useState(location.state.state.options);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
+
+  const {data,loading,error,refetch}=useFetch("/hotels?cities=berlin,madrid,Pune")
+  console.log(data)
+
+  const handleClick = () => {
+    //reFetch();
+  };
 
   return (
     <div>
@@ -86,17 +101,17 @@ const List = () => {
             </div>
             <button>Search</button>
           </div>
-          <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-          </div>
+          {
+           <div className="listResult">
+          {loading? "loading":<>
+          {data.map(item=>(
+           <SearchItem  item={item}/>
+          ))}
+          
+          </>}
+          
+          </div> 
+          }
         </div>
       </div>
     </div>

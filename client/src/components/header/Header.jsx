@@ -13,7 +13,10 @@ import { useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
+// import { createBrowserHistory as history} from 'history';
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -43,8 +46,11 @@ const Header = ({ type }) => {
     });
   };
 
+  
+
   const handleSearch = () => {
-    navigate("/hotels", { state: { destination, date, options } });
+    console.log(destination,date,options)
+    navigate("/hotels",{state:{destination,date,options}})
   };
 
   return (
@@ -86,6 +92,7 @@ const Header = ({ type }) => {
               more with a free Lamabooking account
             </p>
             <button className="headerBtn">Sign in / Register</button>
+            <form>
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
@@ -191,11 +198,16 @@ const Header = ({ type }) => {
                 )}
               </div>
               <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
+              {/* <button className="headerBtn" onClick={handleSearch}>
                   Search
-                </button>
+                </button> */}
+                <Link to={"/hotels"} state={{state:{destination,date,options}}}>
+                  Search
+                </Link>
               </div>
             </div>
+            </form>
+
           </>
         )}
       </div>
