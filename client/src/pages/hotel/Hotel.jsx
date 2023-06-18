@@ -10,20 +10,26 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../context/SearchContext";
 
 const Hotel = () => {
   const location=useLocation()
-  // console.log(location)
+  const stayTime=location.state.days
+  const rooms=location.state.rooms
+  //  console.log(location.state)
   const path=location.pathname.split("/")[2]
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
   // fetching data from backend
   const {data,loading,error}=useFetch(`/hotels/find/${path}`)
-  console.log(data)
+  // console.log(data)
+
+  // const {dates}=useContext(SearchContext)
+  // console.log(dates)
 
   const photos = [
     {
@@ -102,7 +108,7 @@ const Hotel = () => {
             Excellent location – {data.distance} from center
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over ${data.chepeastPrice} at this property and get a free airport taxi
+            Book a stay over ${data.cheapestPrice} at this property and get a free airport taxi
           </span>
           <div className="hotelImages">
             {photos.map((photo, i) => (
@@ -124,13 +130,13 @@ const Hotel = () => {
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
+              <h1>Perfect for a {stayTime}-night stay!</h1>
               <span>
                 Located in the real heart of Krakow, this property has an
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>$945</b> (9 nights)
+                <b>${rooms*stayTime*data.cheapestPrice}</b> ({stayTime} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>

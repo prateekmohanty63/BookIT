@@ -2,12 +2,28 @@ import "./searchItem.css";
 import { Navigate } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 
-const SearchItem = ({item}) => {
+const SearchItem = ({item,date,noRooms}) => {
   let navigate=useNavigate();
+  // console.log("start date",date.startDate)
+  // console.log("end date",date.endDate)
+  // console.log(noRooms.rooms)
+
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  function dayDifference(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
+
+  const days = dayDifference(date.endDate, date.startDate);
+  const numberOfRooms=noRooms.rooms
 
   const checkAva=()=>{
-    navigate(`/hotels/${item._id}`)
+    navigate(`/hotels/${item._id}` , {state:{days:days,rooms:numberOfRooms}})
   }
+  
+  // console.log(days)
+
   return (
     <div className="searchItem">
       <img

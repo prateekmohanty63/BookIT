@@ -11,14 +11,14 @@ import useFetch from "../../hooks/useFetch";
 
 const List = () => {
   const location = useLocation();
-  // console.log(location)
+  //  console.log(location)
   // console.log(location.state.state.destination)
   // console.log(location.state.state.date)
-  // console.log(location.state.state.options)
-  const [destination, setDestination] = useState(location.state.state.destination);
-  const [date, setDate] = useState(location.state.state.date);
+   console.log(location.state.options)
+  const [destination, setDestination] = useState(location.state.destination);
+  const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
-  const [options, setOptions] = useState(location.state.state.options);
+  const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
@@ -44,14 +44,14 @@ const List = () => {
             <div className="lsItem">
               <label>Check-in Date</label>
               <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                date[0].startDate,
+                dates[0].startDate,
                 "MM/dd/yyyy"
-              )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+              )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDate([item.selection])}
+                  onChange={(item) => setDates([item.selection])}
                   minDate={new Date()}
-                  ranges={date}
+                  ranges={dates}
                 />
               )}
             </div>
@@ -105,7 +105,7 @@ const List = () => {
            <div className="listResult">
           {loading? "loading":<>
           {data.map(item=>(
-           <SearchItem  item={item} key={item._id}/>
+           <SearchItem  item={item} date={{startDate:dates[0].startDate,endDate:dates[0].endDate}} noRooms={{rooms:options.room}} key={item._id}/>
           ))}
           
           </>}
