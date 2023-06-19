@@ -20,8 +20,11 @@ import Reserve from "../../components/reserve/Reserve";
 
 const Hotel = () => {
   const location=useLocation()
+  //console.log(location)
   const stayTime=location.state.days
   const rooms=location.state.rooms
+  const dates=location.state.date
+  //console.log(dates)
   //  console.log(location.state)
   const id=location.pathname.split("/")[2]
   const [slideNumber, setSlideNumber] = useState(0);
@@ -168,7 +171,7 @@ const Hotel = () => {
           <Footer />
         </div>
       )}
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} date={dates}/>}
     </div>
   );
 };

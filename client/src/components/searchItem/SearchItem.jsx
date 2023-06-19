@@ -19,7 +19,7 @@ const SearchItem = ({item,date,noRooms}) => {
   const numberOfRooms=noRooms.rooms
 
   const checkAva=()=>{
-    navigate(`/hotels/${item._id}` , {state:{days:days,rooms:numberOfRooms}})
+    navigate(`/hotels/${item._id}` , {state:{days:days,rooms:numberOfRooms,date:date}})
   }
   
   // console.log(days)
