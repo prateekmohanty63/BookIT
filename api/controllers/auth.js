@@ -7,14 +7,23 @@ export const register=async(req,res,next)=>{
     try{
         const salt=bcrypt.genSaltSync(10)
         const hash=bcrypt.hashSync(req.body.password,salt)
-       const newUser=new User({
-          username:req.body.username,
-          email:req.body.email,
-          password: hash,
-          country:req.body.country,
-          city:req.body.city,
-          phone:req.body.phone
-       })
+
+        // this way it can be also done
+    //    const newUser=new User({
+    //       username:req.body.username,
+    //       email:req.body.email,
+    //       password: hash,
+    //       country:req.body.country,
+    //       city:req.body.city,
+    //       phone:req.body.phone
+    //    })
+     
+    // here we are taking all the fields 
+    // only changing the password to the hashed version
+    const newUser=new User({
+        ...req.body,
+        password: hash
+    })
        await newUser.save()
        res.status(201).send("User has been created")
     }

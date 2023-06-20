@@ -7,7 +7,7 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
+          <img className="cellImg" src={params.row.img || "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=300"} alt="avatar" />
           {params.row.username}
         </div>
       );
@@ -18,24 +18,23 @@ export const userColumns = [
     headerName: "Email",
     width: 230,
   },
-
   {
-    field: "age",
-    headerName: "Age",
+    field: "country",
+    headerName: "Country",
     width: 100,
   },
   {
-    field: "status",
-    headerName: "Status",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
+    field: "city",
+    headerName: "City",
+    width: 100,
   },
+  {
+    field: "phone",
+    headerName: "Phone",
+    width: 100,
+  },
+
+  
 ];
 
 //temporary data
