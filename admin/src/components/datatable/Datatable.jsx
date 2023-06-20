@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 // 1. Using use-Fetch for fetching data
 // 2. For update , delete  I am using axios
 
-const Datatable = () => {
+const Datatable = ({columns}) => {
   // const [data, setData] = useState(userRows);
   const location=useLocation();
 
@@ -69,7 +69,7 @@ const Datatable = () => {
       <DataGrid
         className="datagrid"
         rows={list}
-        columns={userColumns.concat(actionColumn)}
+        columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
