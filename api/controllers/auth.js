@@ -38,7 +38,7 @@ export const login=async(req,res,next)=>{
        // storing the jwt token in the response as a cookie
        res.cookie("access_token",token,{
         httpOnly: true
-       }).status(200).send({...otherDetails})
+       }).status(200).send({details:{...otherDetails},isAdmin})
 
     }
     catch(err){
